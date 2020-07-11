@@ -1,5 +1,5 @@
 import React, {useState } from 'react';
-import { Nav, Navbar, Form, FormControl, Button } from 'react-bootstrap'
+import { Nav, Navbar, Form, FormControl, Button, Jumbotron } from 'react-bootstrap'
 import axios from 'axios'
 
 function CreateTodo() {
@@ -25,29 +25,31 @@ function CreateTodo() {
     }
 
     return (
-        <div className="App">
+        <>
             <NavBar />
-            <h2>Create New ToDo</h2><br />
-            <Form onSubmit={handleSubmit}>
-                <Form.Group>
-                    <Form.Label>Description:</Form.Label>
-                    <Form.Control type="todo" placeholder="Enter todo description" onChange={(event) => setDescription(event.target.value)} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Responsible:</Form.Label>
-                    <Form.Control type="responsible" placeholder="Who is responsible for this todo?" onChange={(event) => setResponsible(event.target.value)} />
-                </Form.Group>
-                Priority:
-                <Form.Group>
-                    <Form.Check type="checkbox" name="Low" label="Low" onChange={(event) => setPriority(event.target.checked ? event.target.name : null)} />
-                    <Form.Check type="checkbox" name="Medium" label="Medium" onChange={(event) => setPriority(event.target.checked ? event.target.name : null)} />
-                    <Form.Check type="checkbox" name="High" label="High" onChange={(event) => setPriority(event.target.checked ? event.target.name : null)} />
-                </Form.Group>
-                <Button variant="primary" type="submit" >
-                    Create Todo
-                </Button>
-            </Form>
-        </div>
+            <Jumbotron style={{backgroundColor: "white", marginLeft: "-10px"}}>
+                <h2>Create New ToDo:</h2><br />
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group>
+                        <Form.Label>Description:</Form.Label>
+                        <Form.Control type="todo" placeholder="Enter todo description" onChange={(event) => setDescription(event.target.value)} value={description} />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Responsible:</Form.Label>
+                        <Form.Control type="responsible" placeholder="Who is responsible for this todo?" onChange={(event) => setResponsible(event.target.value)} value={responsible} />
+                    </Form.Group>
+                    Priority:
+                    <Form.Group>
+                        <Form.Check type="checkbox" name="Low" label="Low" onChange={(event) => setPriority(event.target.checked ? event.target.name : null)} checked={priority === "Low" ? true : false} />
+                        <Form.Check type="checkbox" name="Medium" label="Medium" onChange={(event) => setPriority(event.target.checked ? event.target.name : null)} checked={priority === "Medium" ? true : false} />
+                        <Form.Check type="checkbox" name="High" label="High" onChange={(event) => setPriority(event.target.checked ? event.target.name : null)} checked={priority === "High" ? true : false} />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" >
+                        Create Todo
+                    </Button>
+                </Form>
+            </Jumbotron>
+        </>
     );
 }
 

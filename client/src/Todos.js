@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from "react-router-dom";
 import { NavBar } from './create-todo'
 import axios from 'axios'
 
@@ -6,14 +7,19 @@ function Todos() {
 
     const [ todos, setTodos ] = useState({})
 
-    const Todo = props => (
-        <tr>
-            <td>{props.todo.todo_description}</td>
-            <td>{props.todo.todo_responsible}</td>
-            <td>{props.todo.todo_priority}</td>
-            <td>{String(props.todo.todo_completed)}</td>
-        </tr>
-    )
+    const Todo = props => {
+        const completed = props.todo.todo_completed
+        return (
+            <tr>
+                <td style={ completed ? {textDecoration: "line-through"} : null} >{props.todo.todo_description}</td>
+                <td style={ completed ? {textDecoration: "line-through"} : null} >{props.todo.todo_responsible}</td>
+                <td style={ completed ? {textDecoration: "line-through"} : null} >{props.todo.todo_priority}</td>
+                <td>
+                    <Link to={`/edit/${props.todo._id}`}>Edit</Link>
+                </td>
+            </tr>
+        )
+    }
 
     const todoList = () => {
         let arr = []

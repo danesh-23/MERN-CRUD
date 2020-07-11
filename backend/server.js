@@ -7,7 +7,7 @@ const Router = express.Router()
 const PORT = 4000
 
 let Todo = require('./model')
- 
+
 app.use(cors())
 app.use(bodyParser.json())
 
@@ -55,21 +55,22 @@ Router.route('/add').post((req, res) => {
 })
 
 Router.route('/update/:id').post((req, res) => {
-    let todo = new Todo(req.body)
+    let newTodo = new Todo(req.body)
     Todo.findById(req.params.id, (err, todo) => {
         if (err) {
             res.status(400).send('data is not found')
         } else {
-            todo.todo_description = req.body.todo_description
-            todo.todo_responsible = req.body.todo_responsible
-            todo.todo_priority = req.body.todo_priority
-            todo.todo_completed = req.body.todo_completed
+            todo.todo_description = newTodo.todo_description
+            todo.todo_responsible = newTodo.todo_responsible
+            todo.todo_priority = newTodo.todo_priority
+            todo.todo_completed = newTodo.todo_completed
 
             todo.save().then(todo => {
+                console.log(todo)
                 res.json('Todo updated')
             })
             .catch(err => {
-                res.status(400).send('update not possiible')
+                res.status(400).send('update not possible')
             })
         }
     })
