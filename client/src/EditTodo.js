@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NavBar } from './create-todo'
+import { useHistory } from 'react-router-dom'
 import { Form, Button, Jumbotron } from 'react-bootstrap'
 import axios from 'axios'
 
@@ -9,6 +10,7 @@ export default (props) => {
     const [responsible, setResponsible] = useState('')
     const [priority, setPriority] = useState('')
     const [completed, setCompleted] = useState('')
+    let history = useHistory()
 
     useEffect(() => {
         axios.get(`http://localhost:4000/todos/${props.match.params.id}`)
@@ -19,6 +21,7 @@ export default (props) => {
                 setCompleted(response.data.todo_completed)
             })
             .catch(err => console.log(err))
+            // eslint-disable-next-line
     }, [])
     
     const handleSubmit = (event) => {
@@ -35,6 +38,8 @@ export default (props) => {
         }
         axios.post(`http://localhost:4000/todos/update/${props.match.params.id}`, todo)
             .then(res => console.log(res.data))
+
+        history.push('/todos')
     }
 
     return (
